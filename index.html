@@ -3,43 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Power BI Report</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
-        h1 {
-            background-color: #0078D7;
-            color: white;
-            padding: 15px;
-            margin: 0;
-        }
-        .container {
-            margin: 20px auto;
-            width: 95%;
-            max-width: 1200px;
-        }
-        iframe {
-            width: 100%;
-            height: 100vh;
-            border: none;
-        }
-        .loading {
-            font-size: 18px;
-            color: #555;
-            margin-top: 20px;
-        }
-    </style>
+    <title>Power BI Embedded</title>
+    <script src="https://cdn.jsdelivr.net/npm/powerbi-client@2.17.0/dist/powerbi.min.js"></script>
 </head>
 <body>
-    <h1>EMS Internal Testing report</h1>
-    <div class="container">
-        
-        <iframe src="https://app.powerbi.com/reportEmbed?reportId=f197cca8-29b7-4dca-a434-7afc5d2c2b88&autoAuth=true&ctid=ef7a487a-77ca-410a-803d-e426b62a587f" allowfullscreen></iframe>
-    </div>
+    <h1>Power BI Embedded Report</h1>
+    <div id="embedContainer" style="height: 100vh; width: 100%;"></div>
+
+    <script>
+        var embedUrl = "YOUR_EMBED_URL_HERE";  // Replace with Power BI Embed URL
+        var accessToken = "YOUR_EMBED_TOKEN_HERE";  // Replace with your generated embed token
+
+        var config = {
+            type: "report",
+            tokenType: window["powerbi-client"].models.TokenType.Embed,
+            accessToken: accessToken,
+            embedUrl: embedUrl,
+            settings: {
+                filterPaneEnabled: false,
+                navContentPaneEnabled: false
+            }
+        };
+
+        var reportContainer = document.getElementById("embedContainer");
+        var powerbi = new window["powerbi-client"].service.Service(powerbi);
+        powerbi.embed(reportContainer, config);
+    </script>
 </body>
 </html>
